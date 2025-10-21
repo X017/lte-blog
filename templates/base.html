@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/adminlte.min.css' %}">
+
+    <!-- Additional Styles -->
+    <link rel="stylesheet" href="{% static 'adminlte/dist/css/custom-style.css' %}">
+</head>
+<body class="hold-transition sidebar-mini">
+
+<div class="wrapper">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- AdminLTE JS -->
+<script src="{% static 'adminlte/dist/js/plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'adminlte/dist/js/adminlte.min.js' %}"></script>
+
+</body>
+</html>
