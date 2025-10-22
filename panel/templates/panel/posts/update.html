@@ -1,0 +1,40 @@
+
+{% extends 'templates/base.html' %}
+
+{% block content %}
+<div class="col-md-6">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">مثال ساده</h3>
+        </div>
+
+        <form method="POST" role="form">
+            {% csrf_token %}
+            <div class="card-body">
+
+                <div class="form-group">
+
+                    {{form.title }}
+                    {{form.content }}
+                </div>
+
+                <div class="form-check">
+                    {{ form.is_active }}
+                    دیده شود
+                    {% if form.is_active.errors %}
+                        <div class="text-danger">{{ form.is_active.errors }}</div>
+                    {% endif %}
+                </div>
+                <a href="{% url 'post:delete' pk=post.pk %}" class="btn btn-block btn-danger btn-sm">
+                  پاک کردن پست
+                </a>
+
+            </div>
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+
+{% extends 'templates/base.html' %}
+
+{% block content %} 
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Posts List</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length" id="example1_length">
+              <label>
+                Show 
+                <select name="example1_length" aria-controls="example1" class="form-control form-control-sm">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select> 
+                entries
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <div id="example1_filter" class="dataTables_filter">
+              <label>Search:
+                <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <table id="example1" class="table table-bordered table-striped dataTable" role="grid">
+              <thead>
+                <tr>
+                  <th>شماره پست</th>
+                  <th>تایتل</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for post in posts %}
+                  <tr role="row" class="{% cycle 'odd' 'even' %}">
+                    <td>{{ post.id }}</td>
+                    <td>
+                      <a href="{% url 'post:detail' pk=post.pk %}">{{ post.title }}</a>
+                    </td>
+                    <td style="width: 20px;">
+                      <a href="{% url 'post:delete' pk=post.pk %}" class="btn btn-block btn-danger btn-sm">
+                        <i class="left fa fa-trash"></i> حذف
+                      </a>
+                      <a href="{% url 'post:update' pk=post.pk %}" class="btn btn-block btn-info btn-sm">
+                        <i class="left fa fa-edit"></i> ویرایش
+                      </a>
+
+                      <a href="{% url 'post:detail' pk=post.pk %}" class="btn btn-block btn-secondary btn-sm">
+                        <i class="left fa fa-eye"></i> مشاهده
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+{% endblock content %}

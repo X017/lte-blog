@@ -5,6 +5,7 @@ User = get_user_model()
 
 class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=255)
     content = models.TextField() 
 
     is_active = models.BooleanField(default=True)
