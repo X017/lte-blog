@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 
 LOCALLY_INSTALLED_APPS = [
     'post',
-    'panel'
+    'panel',
+    'crispy_forms',
+    "crispy_bootstrap4",
 ]
 
 INSTALLED_APPS = [
@@ -128,3 +130,5 @@ STATICFILES_DIRS = [
 STATIC_ROOT = "/var/www/example.com/static/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"  # or "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"

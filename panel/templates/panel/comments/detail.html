@@ -1,0 +1,32 @@
+{% extends 'templates/base.html' %}
+{% load static %}
+{% block content %}
+<div class="card-body">
+  <div class="tab-content">
+    <div class="active tab-pane" id="activity">
+      {% for comment in comments %}
+        <!-- Post -->
+        <div class="post">
+
+          <p>{{ comment.content }}</p>
+
+          <p>
+            <a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> اشتراک گذاری</a>
+            <a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up mr-1"></i> لایک</a>
+            <span class="float-left">
+              <a href="#" class="link-black text-sm">
+                <i class="fa fa-comments-o mr-1"></i> نظر ({{ comment.replies.count }})
+              </a>
+            </span>
+          </p>
+
+          <input class="form-control form-control-sm" type="text" placeholder="نظر خود را وارد کنید">
+        </div>
+        <!-- /.post -->
+      {% empty %}
+        <p>هیچ نظری وجود ندارد.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -5,7 +5,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, V
 from django.contrib.auth import get_user_model
 
 from panel.views.users.forms import UserModelForm
-from post.models import Post 
+from post.models import Comment, Post 
 
 
 User = get_user_model()
@@ -18,6 +18,7 @@ class UserProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['posts'] = Post.objects.filter(user=self.object)
+        context['comments'] = Comment.objects.filter(user=self.object)
         return context
 
 class UserListView(ListView):

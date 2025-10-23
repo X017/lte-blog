@@ -1,29 +1,112 @@
 {% extends 'templates/base.html' %}
-
 {% block content %}
-
-  <section class="content">
+<div class="content-header">
     <div class="container-fluid">
-  <div class="row justify-content-center">
-      <div class="col-md-8">
-        <!-- Post Card -->
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h3 class="card-title">{{ post.title }}</h3>
-          </div>
-          <div class="card-body">
-            <p>{{ post.content }}</p>
-          </div>
-          <div class="card-footer text-muted">
-            <small>Created at: {{ post.created_at|date:"Y-m-d H:i" }}</small>
-            <p></p>
-            <small>author: {{ post.user }}</small>
-            <!-- You can add more info like author -->
-          </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">جزئیات پست</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">خانه</a></li>
+                    <li class="breadcrumb-item"><a href="#">پست ها</a></li>
+                    <li class="breadcrumb-item active">جزئیات</li>
+                </ol>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  </section>
 </div>
-{% endblock content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- Post Detail -->
+                <div class="card card-widget">
+                    <div class="card-header">
+                        <div class="user-block">
+                            <img class="img-circle" src="../../dist/img/user4-128x128.jpg" alt="User Image">
+                            <span class="username"><a href="#">{{ post.user.username }}</a></span>
+                            <span class="description">منتشر شده در {{ post.created_at|date:"Y/m/d - H:i" }}</span>
+                        </div>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" title="نشان کردن">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="mb-3"><strong>{{ post.title }}</strong></h4>
+                        <p class="lead">{{ post.content }}</p>
+                        
+                        <p class="text-sm text-muted">
+                            <i class="far fa-clock"></i> آخرین بروزرسانی: {{ post.updated_at|date:"Y/m/d - H:i" }}
+                        </p>
+                    </div>
+                    <div class="card-footer card-comments" style="display: block;">
+                        <div class="card-comment">
+                            <div class="comment-text">
+                                <span class="username text-muted">
+                                    <i class="fas fa-eye ml-1"></i> بازدید ها
+                                    <span class="text-sm float-right">۱۲۳ بازدید</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+
+                <!-- Comments Section (List Style) -->
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-comments"></i> نظرات
+                        </h3>
+                        <div class="card-tools">
+                            <span class="badge badge-primary">{{ comments.count }}</span>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if comments %}
+                            <ul class="list-group list-group-flush">
+                                {% for comment in comments %}
+                                <li class="list-group-item">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>{{ comment.user.username }}</strong>
+                                        <small class="text-muted">{{ comment.created_at|date:"Y/m/d - H:i" }}</small>
+                                    </div>
+                                    <p class="mt-2 mb-0">{{ comment.content }}</p>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <div class="callout callout-info">
+                                <h5><i class="icon fas fa-info"></i> نظری وجود ندارد</h5>
+                                <p class="mb-0">هنوز نظری برای این پست ثبت نشده است. اولین نفری باشید که نظر می‌دهید!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if comments %}
+                    <div class="card-footer">
+                        <div class="info-box mb-0 bg-light">
+                            <span class="info-box-icon bg-info"><i class="far fa-comments"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">مجموع نظرات</span>
+                                <span class="info-box-number">{{ comments.count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView , View
 from django.shortcuts import get_object_or_404, redirect
-from post.models import Post
+from post.models import Comment, Post
 from panel.views.posts.forms import BlogForm
 
 class PostListView(ListView):
@@ -32,6 +32,11 @@ class PostDetailView(DetailView):
     template_name = 'panel/posts/detail.html'
     form_class = BlogForm
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(post=self.object)
+        return context
 
 class PostDeleteView(View):
     def get(self,request,pk,**kwargs):

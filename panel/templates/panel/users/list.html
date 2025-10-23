@@ -4,41 +4,34 @@
 <div class="col-12">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">User List</h3>
+      <h3 class="card-title">لیست کاربران</h3>
     </div>
     <div class="card-body">
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Actions</th>
+            <th>آیدی</th>
+            <th>نام کاربری</th>
+            <th>ایمیل</th>
+            <th>عملیات</th>
           </tr>
         </thead>
         <tbody>
           {% for user in users %}
-            <tr>
-              <td>{{ user.id }}</td>
-              <td>{{ user.username }}</td>
-              <td>{{ user.email }}</td>
-              <td>
-                <form action="{% url 'users:delete' pk=user.pk %}" method="post" style="display:inline;">
-                  {% csrf_token %}
-                  <button class="btn btn-danger btn-sm" type="submit">
-                    <i class="fa fa-trash"></i> حذف
-                  </button>
-                </form>
-
-                <a href="{% url 'users:update' pk=user.pk %}" class="btn btn-info btn-sm">
-                  <i class="fa fa-edit"></i> ویرایش
-                </a>
-
-                <a href="{% url 'users:detail' pk=user.pk %}" class="btn btn-secondary btn-sm">
-                  <i class="fa fa-eye"></i> مشاهده
-                </a>
-              </td>
-            </tr>
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <a href="{% url 'users:update' pk=user.pk %}" class="btn btn-info btn-sm">ویرایش</a>
+              <a href="{% url 'users:detail' pk=user.pk %}" class="btn btn-secondary btn-sm">مشاهده</a>
+              <a href="{% url 'users:delete' pk=user.pk %}"  class="btn btn-danger btn-sm">حذف</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4">هیچ کاربری وجود ندارد</td>
+          </tr>
           {% endfor %}
         </tbody>
       </table>

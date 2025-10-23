@@ -8,7 +8,7 @@ class BlogForm(forms.ModelForm):
         model = Post
         fields = ['title','content','is_active']
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control col-sm mb-3','placeholder':'عنوان'}),
+            'content': forms.Textarea(attrs={'class': 'form-control','placeholder':'محتویات'}),
             'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
