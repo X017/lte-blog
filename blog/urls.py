@@ -20,8 +20,11 @@ from django.urls import include, path
 from blog import settings
 from django.conf.urls.static import static
 
+from panel.views.posts.views import PostDashboardListView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('panel/',include('panel.urls'))
+    path('panel/',include('panel.urls')),
+    path('',PostDashboardListView.as_view(),name='dashboard')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

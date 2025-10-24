@@ -3,6 +3,9 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, View 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+
 
 from panel.views.users.forms import UserModelForm
 from post.models import Comment, Post 
@@ -10,7 +13,7 @@ from post.models import Comment, Post
 
 User = get_user_model()
 
-class UserProfileView(DetailView):
+class UserProfileView(LoginRequiredMixin,DetailView):
     model = User 
     template_name = 'panel/users/profile.html'
     context_object_name = 'user'
@@ -21,24 +24,25 @@ class UserProfileView(DetailView):
         context['comments'] = Comment.objects.filter(user=self.object)
         return context
 
-class UserListView(ListView):
+
+class UserListView(LoginRequiredMixin,ListView):
     model = User 
     template_name = 'panel/users/list.html'
     context_object_name = 'users'
 
 class UserCreateView(CreateView):
-    model = User 
-    template_name = 'panel/users/create.html'
+    model = User
     form_class = UserModelForm
+    template_name = 'panel/users/create.html'
     success_url = reverse_lazy('users:list')
 
-class UserDeleteView(View):
+class UserDeleteView(LoginRequiredMixin,View):
     model = User 
     def get(self,request,pk):
         obj = get_object_or_404(User,pk=pk)
         obj.delete()
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin,UpdateView):
     model = User 
     template_name = 'panel/users/create.html'
     form_class = UserModelForm
