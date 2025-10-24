@@ -1,28 +1,50 @@
 {% extends 'templates/base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-<div class="col-md-8 offset-md-2 mt-4">
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title">
-        {% if object %} ویرایش کاربر {% else %} ایجاد کاربر جدید {% endif %}
-      </h3>
-    </div>
 
-    <div class="card-body">
-      <form method="post">
-        {% csrf_token %}
-        {% crispy form %}
-
-        <div class="mt-3 d-flex gap-2">
-          <button type="submit" class="btn btn-primary">
-            {% if object %} ویرایش {% else %} ثبت {% endif %}
-          </button>
-          <a href="{% url 'users:list' %}" class="btn btn-secondary">بازگشت</a>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>{% if object %}ویرایش کاربر{% else %}ایجاد کاربر جدید{% endif %}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="{% url 'users:list' %}">مدیریت کاربران</a></li>
+                        <li class="breadcrumb-item active">{% if object %}ویرایش{% else %}ایجاد{% endif %}</li>
+                    </ol>
+                </div>
+            </div>
         </div>
-      </form>
-    </div>
-  </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">{% if object %}ویرایش کاربر{% else %}ایجاد کاربر جدید{% endif %}</h3>
+                        </div>
+                        
+                        <div class="card-body">
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                            {% endif %}
+                            
+                            {{ form.media }}
+                            
+                            <!-- Use crispy form tag instead of wrapping in form tag -->
+                            {% crispy form %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+
 {% endblock content %}
