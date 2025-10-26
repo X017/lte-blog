@@ -23,9 +23,17 @@
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
             <td>
+              {% if perms.auth.change_user %}
               <a href="{% url 'users:update' pk=user.pk %}" class="btn btn-info btn-sm">ویرایش</a>
+              {% endif %}
+
+              {% if perms.auth.view_user %}
               <a href="{% url 'users:detail' pk=user.pk %}" class="btn btn-secondary btn-sm">مشاهده</a>
-              <a href="{% url 'users:delete' pk=user.pk %}"  class="btn btn-danger btn-sm">حذف</a>
+              {% endif %}
+
+              {% if perms.auth.delete_user %}
+                <a href="{% url 'users:delete' pk=user.pk %}"  class="btn btn-danger btn-sm">حذف</a>
+              {% endif %}
             </td>
           </tr>
           {% empty %}
