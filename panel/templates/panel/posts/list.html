@@ -48,20 +48,29 @@
                 {% for post in posts %}
                   <tr role="row" class="{% cycle 'odd' 'even' %}">
                     <td>{{ post.id }}</td>
+                    {% if perms.post.view_post %}
                     <td>
                       <a href="{% url 'post:detail' pk=post.pk %}">{{ post.title }}</a>
                     </td>
+                    {% endif %}
                     <td style="width: 20px;">
+
+                    {% if perms.post.delete_post %}
                       <a href="{% url 'post:delete' pk=post.pk %}" class="btn btn-block btn-danger btn-sm">
                         <i class="left fa fa-trash"></i> حذف
                       </a>
+                    {% endif %}
+
+                    {% if perms.post.change_post %}
                       <a href="{% url 'post:update' pk=post.pk %}" class="btn btn-block btn-info btn-sm">
                         <i class="left fa fa-edit"></i> ویرایش
                       </a>
-
+                    {% endif %} 
+                    {% if perms.post.view_post %}
                       <a href="{% url 'post:detail' pk=post.pk %}" class="btn btn-block btn-secondary btn-sm">
                         <i class="left fa fa-eye"></i> مشاهده
                       </a>
+                    {% endif %}
                     </td>
                   </tr>
                 {% endfor %}

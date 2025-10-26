@@ -49,12 +49,11 @@ class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, View):
         obj.delete()
         return redirect(reverse_lazy('post:list'))
 
-class PostDashboardListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class PostDashboardListView(LoginRequiredMixin,ListView):
     model = Post
     template_name = 'panel/posts/dashboard.html'      
     context_object_name = 'posts'
     ordering = ['-created_at']
-    permission_required = ['post.view_post']
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
